@@ -12,6 +12,8 @@ using TestingLocation.Services;
 using TestingLocation.Helpers;
 using Xamarin.Forms.Maps;
 using Position = Plugin.Geolocator.Abstractions.Position;
+using TK.CustomMap;
+using TK.CustomMap.Overlays;
 
 namespace TestingLocation.ViewModels
 {
@@ -22,7 +24,11 @@ namespace TestingLocation.ViewModels
         private ILocationDataService _locationDataService;
         private IUserDialogs _userDialogs;
         private IMissionServerService _missionServerService;
-        
+
+        public IObservable<TKCustomMapPin> AedPins { get; set; }
+
+        public IObservable<TKRoute> TKRoutes { get; set; }
+
         public string Filtext { get; set; }
 
         public String Timestamp { get; set; }

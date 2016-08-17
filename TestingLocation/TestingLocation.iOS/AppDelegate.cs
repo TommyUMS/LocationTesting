@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using TK.CustomMap.iOSUnified;
 using UIKit;
 
 namespace TestingLocation.iOS
@@ -24,6 +25,7 @@ namespace TestingLocation.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();
+            TKCustomMapRenderer.InitMapRenderer();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
