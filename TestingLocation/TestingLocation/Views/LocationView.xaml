@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TestingLocation.Views.LocationView">
+  <StackLayout>
+
+    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+      <Label Text="Time started:" />
+      <Label Text="{Binding TimestampStarted}"/>
+    </StackLayout>
+    
+    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+      <Label Text="Latitude:" />
+      <Label Text="{Binding GeoPosition.Latitude}"/>
+    </StackLayout>
+
+    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+      <Label Text="Longitude:" />
+      <Label Text="{Binding GeoPosition.Longitude}"/>
+    </StackLayout>
+
+    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+      <Label Text="Last updated:" />
+      <Label Text="{Binding Timestamp}"/>
+    </StackLayout>
+
+    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+      <Label Text="Number of updates: " />
+      <Label Text="{Binding NumberOfUpdates}"/>
+    </StackLayout>
+
+    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+      <Label Text="Listening: " />
+      <Label Text="{Binding Listening}"/>
+    </StackLayout>
+
+
+    <Button Text="Start PeriodicUpdates" Command="{Binding StartPeriodic}"></Button>
+    <Button Text="Stop PeriodicUpdates" Command="{Binding StopPeriodic}"></Button>
+    <Label Text="{Binding Filtext}"></Label>
+    
+  </StackLayout>
+</ContentPage>
