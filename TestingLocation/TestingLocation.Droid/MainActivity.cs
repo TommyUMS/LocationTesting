@@ -5,6 +5,7 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using TK.CustomMap.Droid;
 using Android.OS;
 
 namespace TestingLocation.Droid
@@ -18,6 +19,7 @@ namespace TestingLocation.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            Xamarin.FormsMaps.Init(this, bundle);
             UserDialogs.Init(this);
             LoadApplication(new App());
         }

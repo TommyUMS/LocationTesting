@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
-using Plugin.Geolocator.Abstractions;
 using Xamarin.Forms;
 using PropertyChanged;
 using TestingLocation.Interfaces;
 using TestingLocation.Services;
+using TestingLocation.Helpers;
+using Xamarin.Forms.Maps;
+using Position = Plugin.Geolocator.Abstractions.Position;
 
 namespace TestingLocation.ViewModels
 {
@@ -27,12 +29,17 @@ namespace TestingLocation.ViewModels
 
         public String TimestampStarted { get; set; }
 
-
         public Position GeoPosition { get; set; }
 
         public int NumberOfUpdates { get; set; }
 
         public bool Listening { get; set; }
+
+        public MapType MapType { get; set; }
+        
+        public Xamarin.Forms.Maps.Position MapCenter { get; set; }
+
+        
 
         public LocationViewModel(ILocationDataService locationDataService, IUserDialogs userDialogs, IMissionServerService missionServerService)
         {
@@ -47,6 +54,8 @@ namespace TestingLocation.ViewModels
             
             Timestamp = "Not updated yet!";
             NumberOfUpdates = 0;
+            MapType = MapType.Street;            
+            MapCenter = new Xamarin.Forms.Maps.Position(60.3382023852435, 5.3437454901496);
 
             try
             {
@@ -58,17 +67,18 @@ namespace TestingLocation.ViewModels
                         {
                             Timestamp = GeoPosition.Timestamp.ToLocalTime().ToString("HH:mm:ss");
                             NumberOfUpdates++;
-                            DependencyService.Get<ILog>()
-                                .addText("LocationLog.txt",
-                                    Timestamp + " new position");
+                           
                             Debug.WriteLine("LocationLog.txt" +
                                     Timestamp + " new position");
                             await _missionServerService.SendLocation(GeoPosition, "4797109265");
                             Filtext = DependencyService.Get<ILog>().LoadText("LocationLog.txt");
+                            MapCenter = ConverterPosition.FromGeoPosToXamPos(GeoPosition);
                         }
                     });
 
                 Device.StartTimer(TimeSpan.FromSeconds(5), CheckIfDeviceIsListening);
+               
+
 
             }
             catch (Exception ex)
@@ -99,8 +109,7 @@ namespace TestingLocation.ViewModels
                     await Task.Delay(TimeSpan.FromSeconds(1));
                     await _locationDataService.StartPeriodicLocationUpdate();
                     _userDialogs.HideLoading();
-
-                });
+                 });
             }
         }
 
@@ -115,7 +124,7 @@ namespace TestingLocation.ViewModels
                     await Task.Delay(TimeSpan.FromSeconds(1));
                     await _locationDataService.StopPeriodicLocationUpdate();
                     _userDialogs.HideLoading();
-
+                    MapCenter = new Xamarin.Forms.Maps.Position(60.3382023852435, 6.3437454901496);
                 });
             }
         }

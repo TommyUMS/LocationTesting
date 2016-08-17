@@ -64,7 +64,7 @@ namespace TestingLocation.Services
             settings.PauseLocationUpdatesAutomatically = false;*/
 
             if (!locator.IsListening)
-                return await locator.StartListeningAsync(30000, 50);
+                return await locator.StartListeningAsync(36000000, 500);
 
             return false;
         }
